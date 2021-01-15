@@ -6,7 +6,8 @@
   "author": "Connie Yu",
   "license": "MIT",
   "dependencies": {},
-  "devDependencies": {},
-  "scripts": {
-  }
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  },
+  "scripts": {}
 }
