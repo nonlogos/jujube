@@ -1,1 +1,4 @@
 node_modules
+
+# leave existing content untouched
+dist
