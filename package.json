@@ -1,0 +1,12 @@
+{
+  "name": "jujube",
+  "version": "0.0.1",
+  "description": "React Typescript Accessible Component Library",
+  "main": "index.js",
+  "author": "Connie Yu",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+  }
+}
