@@ -1,0 +1,74 @@
+import { Meta, Story, Canvas, ArgsTable, Source } from '@storybook/addon-docs/blocks';
+import Paper from './Paper.component';
+
+<Meta
+  title="Paper"
+  component={Paper}
+  argTypes={{
+    elevation: {
+      defaultValue: 0,
+      control: { type: 'range', min: 0, max: 25, step: 1 },
+    },
+    text: {
+      description: 'custom prop only available for control panel to test out different text',
+      control: 'text',
+    },
+    squareCorners: {
+      defaultValue: false,
+      control: 'boolean',
+    },
+    action: {
+      description: 'event function',
+      table: {
+        category: 'Events',
+      },
+    },
+    component: {
+      table: { disable: true },
+    },
+    customstyles: { control: 'object' },
+    theme: { control: 'object' },
+    className: {
+      table: { disable: true },
+    },
+    displayName: {
+      table: { disable: true },
+    },
+  }}
+/>
+
+# Paper
+
+Paper is the base component for styling section containers or articles of content.
+
+<Canvas>
+  <Story
+    name="Elevated"
+    args={{
+      elevation: 5,
+      text: 'Elevated',
+    }}
+  >
+    {(args) => <Paper {...args}>{args.text}</Paper>}
+  </Story>
+  <Story
+    name="Corner control"
+    args={{
+      elevation: 0,
+      squareCorners: true,
+      text: 'squareCorners',
+    }}
+  >
+    text prop is only for testing on the control panel
+    {(args) => <Paper {...args}>{args.text}</Paper>}
+  </Story>
+</Canvas>
+
+<Source
+  language="jsx"
+  code={`
+     <Paper elevation={5}>Elevated</Paper>
+  `}
+/>
+
+<ArgsTable of={Paper} />

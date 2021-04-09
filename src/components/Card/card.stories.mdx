@@ -1,0 +1,188 @@
+import { Meta, Story, Canvas, ArgsTable, Source } from '@storybook/addon-docs/blocks';
+import styled from 'styled-components';
+import dedent from 'ts-dedent';
+import Card from './Card.component';
+import { basicUsage } from './stories/basic.stories';
+import { media } from './stories/media.stories';
+import SentimentSatisfiedRoundedIcon from '@material-ui/icons/SentimentSatisfiedRounded';
+import horiImage1 from '../../../testResources/horizontal_image_1.jpg';
+import horiImage2 from '../../../testResources/horizontal_image_2.jpg';
+import vertiImage1 from '../../../testResources/vertical_image_1.jpeg';
+
+<Meta title="Card" component={Card} />
+
+# Card
+
+Cards are surfaces that display content and actions on a single topic. The card component is based on the basic styles of paper component. In addition to the main component, you can use the following compound components inside `<Card />` to take advantage of built-in accessibilty and styles support for each major content type.
+
+- basic: (defaults to li item, props, hover style..etc)
+- ActionArea: `<Card.ActionArea />`
+  Use **ActionArea** to indicate action
+- Header
+- Media
+
+## Basic Card style props
+
+Like the paper component, you can pass in the **elevation** prop for the card's shadow style or **squareCorners** for the corner radius style.
+
+### elevation
+
+### squareCorners
+
+**squareCorners** prop controls the corner style of the card. It's defaulted to round corners at border radius set in theme.shape.borderRadius
+
+<Canvas>
+  <Story story={basicUsage} />
+</Canvas>
+
+## Card Media
+
+<Canvas>
+  <Story story={media} />
+</Canvas>
+
+## Card Backup
+
+<Canvas>
+  <Story
+    name="Backup"
+    args={{
+      elevation: 2,
+      header: 'The Celebrated Jumping Frog of Calaveras County',
+      text: 'This is a fantastic story...',
+    }}
+    parameters={{
+      docs: {
+        source: {
+          code: dedent`<Card elevation={5}>
+            <h3>{args.header}</h3>
+            <p>{args.text}</p>
+          </Card>`,
+        },
+      },
+    }}
+  >
+    {(args) => {
+      const ViewStyles = styled.div`
+        display: flex;
+        flex-direction: row;
+        & > *:not(:last-child) {
+          margin-right: 12px;
+        }
+      `;
+      const ImageStyles = styled.img`
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        aspect-ratio: 4/3;
+        transition: all 0.5s;
+      `;
+      const ImageHoverStyles = styled.div`
+        order: -1;
+        height: max(15rem, 4vh);
+        width: calc(100% + 32px);
+        margin: -16px -16px 0 -16px;
+        max-height: max(15rem, 4vh);
+        overflow: hidden;
+      `;
+      const hoverStyles = `
+        :hover > * > img {
+          transform: scale(1.2);
+        }
+      `;
+      const customHoverStyles = `
+        background-image: url(${vertiImage1});
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 5px;
+        height: 100%;
+        max-width: 100%;
+        align-items: center;
+        justify-content: center;
+        :hover {
+          background: red;
+        }
+        && h3, && a {
+          font-size: 2rem;
+          color: white;
+          text-shadow: 1px 1px 1px #333;
+        }
+      `;
+      const customHeaderStyles = `
+        display: flex;
+        flex-direction: row;
+        & p {
+          flex-grow: 4;
+          line-height: 1.5em;
+        }
+        & svg {
+          flex-grow: 1;
+        }
+      `;
+      return (
+        <ViewStyles>
+          <Card {...args} elevation={args.elevation}>
+            <Card.ActionArea action={() => alert('hello')} customstyles={hoverStyles}>
+              <Card.Header subtitle={1}>
+                <a href="/">{args.header}</a>
+              </Card.Header>
+              <ImageHoverStyles>
+                <ImageStyles src={horiImage1} alt="sample card image" />
+              </ImageHoverStyles>
+              <p>{args.text}</p>
+            </Card.ActionArea>
+          </Card>
+          <Card {...args} elevation={args.elevation}>
+            <Card.Header component="div" $customstyles={customHeaderStyles}>
+              <SentimentSatisfiedRoundedIcon />
+              <p>Happy go lucky cat</p>
+            </Card.Header>
+            <img
+              src={horiImage2}
+              alt="sample card image"
+              style={{ width: '100%', height: 'max(15rem, 4vh)', objectFit: 'cover', aspectRatio: '4/3' }}
+            />
+            <p>{args.text}</p>
+            <Card.ActionArea>
+              <button>Read More</button>
+            </Card.ActionArea>
+          </Card>
+          <Card {...args} elevation={args.elevation}>
+            <Card.ActionArea action={() => alert('hello')} customstyles={customHoverStyles}>
+              <Card.Header subtitle={1}>
+                <a href="/">{args.header}</a>
+              </Card.Header>
+            </Card.ActionArea>
+          </Card>
+          <Card {...args} elevation={args.elevation}>
+            <Card.ActionArea>
+              <Card.Header subtitle={1}>
+                <a href="/">{args.header}</a>
+              </Card.Header>
+              <video
+                controls
+                style={{
+                  width: 'calc(100% + 32px)',
+                  margin: '-16px',
+                  marginBottom: '0',
+                  height: '100%',
+                  objectFit: 'cover',
+                  order: -1,
+                }}
+              >
+                <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm" />
+                <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg" />
+                <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4" />
+                <source src="http://techslides.com/demos/sample-videos/small.3gp" type="video/3gp" />
+              </video>
+              <p>{args.text}</p>
+            </Card.ActionArea>
+          </Card>
+        </ViewStyles>
+      );
+    }}
+  </Story>
+</Canvas>
+
+<ArgsTable of={Card} />
