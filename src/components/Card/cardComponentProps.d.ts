@@ -1,5 +1,6 @@
 import IBaseComponentProps from '../baseComponent/baseComponentProps';
 import { DefaultTheme } from 'styled-components';
+import React from 'react';
 
 export interface ICardComponentProps extends IBaseComponentProps {
   elevation?: number;
@@ -18,7 +19,7 @@ export interface ICardActionAreaProps {
 
 export interface IActionAreaProps {
   $action?: () => void;
-  elevation?: number;
+  $elevation?: number;
   $customstyles?: any;
 }
 
@@ -36,7 +37,6 @@ export interface ICardHeaderComponentProps {
 export type cardHeaderSubtitleType = 'subtitle1' | 'subtitle2';
 
 export interface ICardMediaComponentProps {
-  children?: React.ReactNode;
   component?: string;
   variant?: 'background';
   src?: string;

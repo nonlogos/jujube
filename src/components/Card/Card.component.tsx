@@ -9,14 +9,17 @@ import CardActionArea from './card.actionArea.component';
 import CardMedia from './card.media.component';
 
 // eslint-disable-next-line react/display-name
-const CardComponent = forwardRef(({ children, customstyles, className, elevation, component, ...props }: ICardComponentProps, ref) => {
-  const cssClassStr = `card-component ${className}`;
-  return (
-    <Paper className={cssClassStr} ref={ref} component={component || 'li'} customstyles={customstyles} elevation={elevation} {...props}>
-      {children}
-    </Paper>
-  );
-}) as ICardComposition;
+const CardComponent = forwardRef(
+  ({ children, customstyles, className, elevation, component = 'li', ...props }: ICardComponentProps, ref) => {
+    const cssClassStr = `card-component ${className}`;
+    console.info('component', component);
+    return (
+      <Paper className={cssClassStr} ref={ref} component={component} customstyles={customstyles} elevation={elevation} {...props}>
+        {children}
+      </Paper>
+    );
+  }
+) as ICardComposition;
 
 export const Card = styled(CardComponent)`
   --padding-reset: 0;

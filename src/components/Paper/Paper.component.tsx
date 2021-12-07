@@ -6,15 +6,14 @@ import { baseTheme, shadow, lightPalleteTheme, setFontStyles } from '../../theme
 
 export const PaperComponent = React.forwardRef(
   // eslint-disable-next-line react/prop-types
-  ({ children, component, className, action, elevation, ...props }: IPaperProps, ref) => {
+  ({ children, component = 'div', className, action, elevation, ...props }: IPaperProps, ref) => {
     const handleClick = () => {
       action && action();
     };
-    console.info('papercomponent', component);
     return (
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      <Paper as={component || 'div'} ref={ref} className={className} onClick={handleClick} $elevation={elevation} {...props}>
+      <Paper as={component} ref={ref} className={className} onClick={handleClick} $elevation={elevation} {...props}>
         {children}
       </Paper>
     );

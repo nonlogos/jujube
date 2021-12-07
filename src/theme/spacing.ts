@@ -1,9 +1,7 @@
-import baseTheme from './baseTheme';
-
 type Factor = number | Array<string | number>;
-type Spacing = (factor: Factor, baseSpacing?: number, unit?: string) => string;
+type Spacing = (factor: Factor, baseSpacing: number, unit?: string) => string;
 
-export const spacing: Spacing = (factor, baseSpacing = baseTheme.spacing.base, unit = baseTheme.spacing.unit) => {
+const calculateSpacing: Spacing = (factor, baseSpacing, unit) => {
   try {
     let multiplier;
     if (typeof factor === 'number') {
@@ -30,3 +28,5 @@ export const spacing: Spacing = (factor, baseSpacing = baseTheme.spacing.base, u
     throw err;
   }
 };
+
+export const spacing = (baseSpacing: number, unit: string) => (factor: Factor): string => calculateSpacing(factor, baseSpacing, unit);

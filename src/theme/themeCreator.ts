@@ -1,5 +1,9 @@
 import { DefaultTheme } from 'styled-components';
-import { baseTheme, typography, shadow, darkPalleteTheme, lightPalleteTheme, palleteBaseTheme } from './';
+import baseTheme from './baseTheme';
+import typography from './typography';
+import { spacing } from './spacing';
+import shadow from './shadow';
+import { darkPalleteTheme, lightPalleteTheme, palleteBaseTheme } from './pallete';
 
 type themeMode = 'light' | 'dark';
 

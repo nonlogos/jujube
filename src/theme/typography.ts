@@ -7,13 +7,13 @@ export const typography = {
   fontWeightMedium: 500,
   fontWeightBold: 700,
   fontFamily: fontFamilies,
-  fontSize: '16px',
+  fontSize: '18px',
   h1: {
     fontFamily: fontFamilies,
     fontWeight: 300,
     fontStretch: '110%',
     fontSize: '6rem',
-    lineHeight: 1.167,
+    lineHeight: 1.3,
     letterSpacing: '-0.01562em',
   },
   h2: {
@@ -77,7 +77,7 @@ export const typography = {
     fontWeight: 400,
     fontStretch: '100%',
     fontSize: '1rem',
-    lineHeight: '1.5',
+    lineHeight: 1.5,
     letterSpacing: '0.00938em',
   },
   body2: {
@@ -85,7 +85,7 @@ export const typography = {
     fontWeight: 400,
     fontStretch: '100%',
     fontSize: '0.875rem',
-    lineHeight: '1.43rem',
+    lineHeight: 1.43,
     letterSpacing: '0.01071em',
   },
   button: {
@@ -106,3 +106,5 @@ export const typography = {
     letterSpacing: '0.03333em',
   },
 };
+
+export default typography;

@@ -1,5 +1,7 @@
 import { spacing } from './spacing';
 
+type TSpace = undefined | ((...args: any[]) => string);
+
 const baseTheme = {
   breakpoints: {
     xs: 0,
@@ -15,7 +17,7 @@ const baseTheme = {
   spacing: {
     base: 8,
     unit: 'px',
-    space: spacing,
+    space: undefined,
   },
   duration: {
     shortest: 150,
@@ -27,5 +29,9 @@ const baseTheme = {
     leavingScreen: 195,
   },
 };
+
+const { base, unit } = baseTheme?.spacing;
+
+baseTheme.spacing.space = spacing(base, unit);
 
 export default baseTheme;

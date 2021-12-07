@@ -9,8 +9,7 @@ const ActionAreaStyles = styled.div`
     padding-bottom: var(--element-padding);
   }
   & > *:not(.card-media, .card-media-container, img, video, audio, iframe, picture) {
-    padding-left: var(--container-padding);
-    padding-right: var(--container-padding);
+    padding: 0 var(--container-padding);
   }
   & > *:first-child:not(.card-media, .card-media-container img, video, audio, iframe, picture) {
     padding-top: var(--container-padding);
@@ -18,19 +17,20 @@ const ActionAreaStyles = styled.div`
   display: flex;
   flex-direction: column;
   flex: auto;
-  ${({ elevation }) => typeof elevation === 'number' && shadow[elevation]}
-  ${({ $action, elevation }: IActionAreaProps) =>
+  box-shadow: ${({ $elevation = 0 }) => shadow[$elevation]};
+
+  ${({ $action, $elevation }: IActionAreaProps) =>
     $action &&
     `
     :hover {
       cursor: pointer;
-      box-shadow: ${elevation && elevation >= 0 ? shadow[elevation + 5] : 'inherit'}
+      box-shadow: ${$elevation && $elevation >= 0 ? shadow[$elevation + 5] : 'inherit'}
     }
   `}
   ${({ $customstyles }: IActionAreaProps) => $customstyles}
 `;
 
-const CardActionArea: React.FC<ICardActionAreaProps> = ({ children, action, customstyles, ...props }: ICardActionAreaProps) => {
+const CardActionArea: React.FC<ICardActionAreaProps> = ({ children, action, customstyles, elevation, ...props }: ICardActionAreaProps) => {
   const [mouseDown, setMouseDown] = useState<number>(0);
   const handleMousedown = () => {
     const mouseDownTime = new Date().getTime();
@@ -72,7 +72,7 @@ const CardActionArea: React.FC<ICardActionAreaProps> = ({ children, action, cust
   });
 
   return (
-    <ActionAreaStyles className="card-action-area" $action={action} $customstyles={customstyles}>
+    <ActionAreaStyles className="card-action-area" $action={action} $customstyles={customstyles} $elevation={elevation}>
       {childrenWithProp}
     </ActionAreaStyles>
   );

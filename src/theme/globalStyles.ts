@@ -9,31 +9,26 @@ import { findObjectValue } from '../utils/helperFunctions';
 
 type IHeadingTypes = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body1' | 'body2' | 'subtitle1' | 'subtitle2';
 
-export const setFontStyles = (theme: DefaultTheme, heading: IHeadingTypes) => {
-  const typeSettings: IHeading = {};
-  if (theme.typography && theme.typography[heading]) {
-    const defaultSetting = theme.typography[heading];
-    if (defaultSetting) {
-      typeSettings.fontFamily = defaultSetting.fontFamily;
-      typeSettings.fontWeight = defaultSetting.fontWeight;
-      typeSettings.fontStretch = defaultSetting.fontStretch;
-      typeSettings.lineHeight = defaultSetting.lineHeight;
-      typeSettings.letterSpacing = defaultSetting.letterSpacing;
-      typeSettings.fontSize = defaultSetting.fontSize;
-    }
-  }
-  return css`
-    font-family: ${(typeSettings && typeSettings.fontFamily) || typography[heading].fontFamily};
-    font-weight: ${(typeSettings && typeSettings.fontWeight) || typography[heading].fontWeight};
-    font-stretch: ${(typeSettings && typeSettings.fontStretch) || typography[heading].fontStretch};
-    line-height: ${(typeSettings && typeSettings.lineHeight) || typography[heading].lineHeight};
-    letter-spacing: ${(typeSettings && typeSettings.letterSpacing) || typography[heading].letterSpacing};
-    font-size: ${(typeSettings && typeSettings.fontSize) || typography[heading].fontSize};
-  `;
-};
-
 const globalStyles = (theme: DefaultTheme) => {
+  const SM_BREAKPOINT = findObjectValue(theme, 'breakpoints', 'sm') || baseTheme.breakpoints.sm;
+  const MD_BREAKPOINT = findObjectValue(theme, 'breakpoints', 'md') || baseTheme.breakpoints.md;
   return css`
+    :root {
+      --base-font-size: max(1rem, ${(theme.typography && theme.typography.fontSize) || typography.fontSize});
+      --main-font-family: ${(theme.typography && theme.typography.fontFamily) || typography.fontFamily};
+      --main-bkgd: ${findObjectValue(theme, 'background', 'default') || lightPalleteTheme.background.default};
+    }
+
+    @media (max-width: ${MD_BREAKPOINT}px) {
+      :root {
+      }
+    }
+
+    @media (max-width: ${SM_BREAKPOINT}px) {
+      :root {
+      }
+    }
+
     /****** normalize browser css settings *******/
     ${normalize}
     @font-face {
@@ -82,11 +77,7 @@ const globalStyles = (theme: DefaultTheme) => {
     h3,
     h4,
     h5,
-    h6 {
-      margin: 0;
-      font-size: inherit;
-      font-weight: inherit;
-    }
+    h6,
     p {
       margin: 0;
     }
@@ -101,18 +92,12 @@ const globalStyles = (theme: DefaultTheme) => {
     /****** [end] Elad Shechter's RESET *******/
 
     html {
-      background: ${findObjectValue(theme, 'default') || lightPalleteTheme.background.default};
+      background: var(--main-bkgd);
       color: ${findObjectValue(theme, 'text', 'primary') || lightPalleteTheme.text.primary};
-      font-size: ${(theme.typography && theme.typography.fontSize) || typography.fontSize}; /*for using REM units*/
-      @media (max-width: ${(theme.breakpoints && theme.breakpoints.sm) || baseTheme.breakpoints.sm}) {
-        font-size: 15px; /*for using REM units*/
-      }
-      @media (max-width: ${(theme.breakpoints && theme.breakpoints.md) || baseTheme.breakpoints.md}) {
-        font-size: 13px; /*for using REM units*/
-      }
+      font-size: var(--base-font-size);
       & body {
         direction: ${theme.direction || baseTheme.direction};
-        font-family: ${(theme.typography && theme.typography.fontFamily) || typography.fontFamily};
+        font-family: var(--main-font-family);
       }
     }
     /****** Types will scale with modules *******/
@@ -134,10 +119,30 @@ const globalStyles = (theme: DefaultTheme) => {
     h6 {
       ${setFontStyles(theme, 'h6')}
     }
-    p {
-      ${setFontStyles(theme, 'body1')}
-    }
   `;
 };
 
 export default globalStyles;
+
+export const setFontStyles = (theme: DefaultTheme, heading: IHeadingTypes) => {
+  const typeSettings: IHeading = {};
+  if (theme.typography && theme.typography[heading]) {
+    const defaultSetting = theme.typography[heading];
+    if (defaultSetting) {
+      typeSettings.fontFamily = defaultSetting.fontFamily;
+      typeSettings.fontWeight = defaultSetting.fontWeight;
+      typeSettings.fontStretch = defaultSetting.fontStretch;
+      typeSettings.lineHeight = defaultSetting.lineHeight;
+      typeSettings.letterSpacing = defaultSetting.letterSpacing;
+      typeSettings.fontSize = defaultSetting.fontSize;
+    }
+  }
+  return css`
+    font-family: ${(typeSettings && typeSettings.fontFamily) || typography[heading].fontFamily};
+    font-weight: ${(typeSettings && typeSettings.fontWeight) || typography[heading].fontWeight};
+    font-stretch: ${(typeSettings && typeSettings.fontStretch) || typography[heading].fontStretch};
+    line-height: ${(typeSettings && typeSettings.lineHeight) || typography[heading].lineHeight};
+    letter-spacing: ${(typeSettings && typeSettings.letterSpacing) || typography[heading].letterSpacing};
+    font-size: ${(typeSettings && typeSettings.fontSize) || typography[heading].fontSize};
+  `;
+};

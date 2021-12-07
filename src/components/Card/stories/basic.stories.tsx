@@ -7,7 +7,10 @@ import { argTypes } from './configs';
 //👇 We create a “template” of how args map to rendering
 export const basicUsage: Story<ComponentProps<typeof Card>> = (args) => (
   <ul style={{ display: 'flex', flexDirection: 'row' }}>
-    <Card {...args} customstyles={{ marginRight: '16px' }} squareCorners={args.squareCorners}>
+    <li>
+      <p>hello</p>
+    </li>
+    <Card elevation={args.elevation} squareCorners={args.squareCorners} customstyles={{ marginRight: '10px' }}>
       <Card.Header subtitle={1}>
         <a href="/">{args.header}</a>
       </Card.Header>
@@ -26,12 +29,13 @@ export const basicUsage: Story<ComponentProps<typeof Card>> = (args) => (
 
 basicUsage.args = {
   elevation: 5,
+  squareCorners: false,
   header: 'The Celebrated Jumping Frog of Calaveras County',
   text:
     "In compliance with the request of a friend of mine, who wrote me from the East, I called on good-natured, garrulous old Simon Wheeler, and inquired after my friend's friend, Leonidas W. Smiley, as requested to do, and I hereunto append the result.",
   hoverStyles: `
       transition: all 0.25s ease;
-      :hover { background: lightgray; box-shadow: none }
+      :hover { background: lightgray; }
       `,
 };
 

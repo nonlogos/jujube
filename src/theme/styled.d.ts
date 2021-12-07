@@ -25,7 +25,6 @@ export interface IDuration {
 export interface ISpacing {
   base?: number;
   unit?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   space?: (...args: any[]) => string; //making the function generic so user can pass in their own
 }
 
